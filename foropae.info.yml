@@ -1,0 +1,21 @@
+name: Foro Premios AE
+type: theme
+description: 'Rebranded theme for Foro Premios Afectivo Efectivo.'
+core_version_requirement: ^8 || ^9
+base theme: bootstrap
+libraries:
+  - foropae/global-styling
+regions:
+  main_menu_region: 'Side panel (menu)'
+  post_header_first: 'Post Header First'
+  post_header_last: 'Post Header Last'
+  page_top: 'Page Top'
+  content: 'content'
+  page_bottom: 'Page Bottom'
+  footer_logo_mobile: 'Footer Logo (mobile)'
+  footer_logo_desktop: 'Footer Logo (desktop)'
+  footer_logo_collaborators: 'Footer collaborator logos'
+  footer2_content: 'Footer 2 content'
+  footer2_menu: 'Footer 2 menu area'
+  help: 'Help'
+  highlighted: 'Highlighted'

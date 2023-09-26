@@ -1,0 +1,24 @@
+# foropae.libraries.yml
+global-styling:
+  css:
+    base:
+      '//fonts.googleapis.com/css?family=Lato': { external: true }
+    theme:
+      css/styles.css: {}
+      css.custom_styles: {}      
+    component:
+      /foro_site/web/sites/default/files/custom_styles.css: {type: external}
+
+  js:
+    js/main-menu.js: {}
+    js/ie-svg.js: {}
+    js/accordion.js: {}
+    js/svg4everybody.min.js: {}
+    js/owl.carousel.min.js: {}
+    js/carousel.js: {}
+    js/foro_videodef.js: {}
+  dependencies:
+    - core/drupal.dialog.ajax
+
+    
+

@@ -1,0 +1,19 @@
+<div class="l-container is-wide">
+ <div class="c-search-page">
+  
+  {% if search_results %}
+   
+   <h1 class="c-search-page__title">
+    {{ 'Search results'|t }}
+   </h1>
+
+   <div class="l-simple-grid">
+    {{ search_results }}
+   </div>
+   
+   {{ pager }}
+  {% endif %}
+  
+ </div>
+
+</div>

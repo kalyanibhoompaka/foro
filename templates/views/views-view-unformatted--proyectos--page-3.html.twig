@@ -1,0 +1,10 @@
+{% if title %}
+ <h3>{{ title }}</h3>
+{% endif %}
+<div class="view-content l-col-flex">
+{% for id, row in rows %}
+ <div class="l-col-flex__box views-row">
+  {{ row }}
+ </div>
+{% endfor %}
+ </div>

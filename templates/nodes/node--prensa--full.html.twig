@@ -1,0 +1,33 @@
+{% if node.field_adjunto_prensa.value is not empty %}
+{% set downloadLink = file_url(node.field_adjunto_prensa.entity.uri.value) %}
+{% endif %}
+
+<div class="c-agenda">
+ <div class="c-agenda__image">
+  {{ content.field_imagen_principal_prensa }}
+ </div>
+ <div class="c-agenda__content">
+  <div class="c-agenda__content-date">
+   <span>{{ node.field_fecha.value|date('d/m/Y') }}</span>
+  </div>
+  <div>
+   <h2 class="c-agenda__content-title">{{ label }}</h2>
+
+   {% if downloadLink %}
+    <a class="c-button" href="{{ downloadLink }}">
+    {{ node.field_adjunto_prensa.description }}
+    </a>
+   {% endif %}
+
+   {% if node.field_link_prensa.uri is not empty %}
+   {% if node.field_link_prensa.uri =='route:<nolink>' and node.field_link_prensa.title is not empty %}
+    <a class="c-button" href="/agenda">Próximamente</a>
+    {% else %}
+    <a class="c-button" href="{{ node.field_link_prensa.uri }}">
+     {{ node.field_link_prensa.title }}
+    </a>
+   {% endif %}{% endif %}
+
+  </div>
+ </div>
+</div>

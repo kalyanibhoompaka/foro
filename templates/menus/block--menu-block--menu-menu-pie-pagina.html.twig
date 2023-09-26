@@ -1,0 +1,14 @@
+{% if classes %}
+{% set classes = 'c-footer-nav__menu '~ classes %}
+{% else %}
+ {% set classes = 'c-footer-nav__menu' %}
+{% endif %}
+
+<nav {{ attributes.addClass(classes) }} role="navigation">
+
+ {{ title_prefix }}
+ {{ title_suffix }}
+
+ {{ content }}
+
+</nav>

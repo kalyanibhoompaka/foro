@@ -1,0 +1,43 @@
+{% set count = items|length %}
+{% if element['#view_mode'] == 'gallery_list_card' %}
+  {{ items.0.content }} 
+
+{% else %}
+
+ <div class="l-container is-wide">
+  <div class="c-gallery__image-list">
+   {% for i in 1 .. 3 %}
+    <div class="c-gallery__img">
+     {% if  items[i] %}  
+      {{ items[i] }}
+       {% endif %}
+      </div>
+   {% endfor %}
+  
+  </div>
+ </div>
+ <div class="c-gallery__outstanding">
+  {% if items.0 %}
+  {{ items.0.content }}
+    {% endif %}
+  </div>
+
+
+ {% if count>4 %}
+  <div class="l-container is-wide">
+   <div class="c-gallery__image-list">
+     {% for i in 4 .. count %}
+  
+     <div class="c-gallery__img">
+    
+      {% if items[i] %} 
+       {{ items[i] }}
+   
+ {% endif %}
+        </div>
+ {% endfor %}
+   </div>
+  </div>
+  {% endif %}
+       {% endif %}
+ 

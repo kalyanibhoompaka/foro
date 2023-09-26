@@ -1,0 +1,8 @@
+{%- for item in items -%} 
+{% set tagURl = render_var(item.content['#url']) %}
+ <li>
+ <a href="{{ tagURl|replace({'tags': 'personas-y-proyectos/etiquetas'}) }}">
+ {{ item.content['#title'] }} 
+ </a>
+ </li>
+  {%- endfor -%}

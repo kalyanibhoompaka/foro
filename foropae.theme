@@ -1,0 +1,228 @@
+<?php
+
+use Drupal\key\Entity\Key;
+use Drupal\svg_icons\Controller\SvgiconController;
+
+function foropae_menu_tree($variables) {
+  return '<ul class="o-menu">' . $variables['tree'] . '</ul>';
+}
+
+/**
+ * Implements hook_preprocess().
+ */
+function foropae_preprocess(&$variables, $hook) {
+
+  if ( $hook == "html" ) {
+    // temporary disable apple touch icon
+    unset( $variables['appletouchicon'] );
+
+    if( file_exists('custom_styles.css') ){
+      drupal_add_css('custom_styles.css', ['group' => CSS_THEME] );
+    }
+  }
+}
+function mytheme_theme_suggestions_page_alter(array &$suggestions, array $variables) {
+  $path_args = explode('/', trim(\Drupal::service('path.current')->getPath(), '/'));
+  $suggestions = theme_get_suggestions($path_args, 'page');
+  $http_error_suggestions = [
+    'system.401' => 'page__401',
+    'system.403' => 'page__403',
+    'system.404' => 'page__404',
+  ];
+
+  $route_name = \Drupal::routeMatch()->getRouteName();
+  if (isset($http_error_suggestions[$route_name])) {
+    $suggestions[] = $http_error_suggestions[$route_name];
+  }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter() for search_form().
+ *
+ * Add classes for styling to search form in search results
+ */
+function foropae_form_webform_client_form_1841_alter(&$form, &$form_state, $form_id) {
+  $form['submitted']['newsletter_header']['#prefix'] = '<div class="c-newsletter-form u-bg is-blue"><div class="l-container">';
+  $form['submitted']['newsletter_header']['#suffix'] = '</div></div>';
+  $form['submitted']['newsletter_content']['#prefix'] = '<div class="c-newsletter-form"><div class="l-container is-wide">';
+  $form['submitted']['newsletter_header']['#suffix'] = '</div></div>';
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter() for search_form().
+ *
+ * Add classes for styling to search form in search results
+ */
+function foropae_form_search_form_alter(&$form, &$form_state, $form_id) {
+
+  // Special wrapper
+  $form['basic']['#prefix'] = '<div class="l-container"><div class="c-search-form">';
+  $form['basic']['#suffix'] = '</div></div>';
+
+  $form['basic']['#attributes']['class'] = ['c-search-form__content'];
+
+  // Special modifications for "keys"
+  $form['basic']['keys']['#prefix'] =
+    '<div class="c-search-form__title">'.
+    t('Buscador') .'<span class="u-mobile-only"> '.
+    t('de contenidos').'</span></div>';
+
+
+    $form['basic']['keys']['#title'] = [
+      '#title' => t('Palabra clave'),
+    ];
+
+  $form['basic']['keys']['#title'] = t('Palabra clave');
+
+  // Classes for submit button
+  $form['basic']['submit']['#attributes']['class'][] = 'c-magnifier-button';
+}
+
+function foropae_form_search_block_form_alter(&$form){
+  $form['search_block_form']['#prefix'] = '<div class="c-search-form__title">'.
+  t('Buscador') .'<span class="u-mobile-only"> '.
+  t('de contenidos').'</span></div>';;
+  // $form['search_block_form']['#suffix'] = '</div>';
+
+  $form['search_block_form']['#attributes']['class'] = ['c-search-form__content'];
+  unset($form['search_block_form']['#attributes']['placeholder']);
+  // $form['search_block_form']['#prefix'] =
+
+
+  unset($form['search_block_form']['#title_display']) ;
+  $form['search_block_form']['#title'] = t('Palabra clave') ;
+
+  // Classes for submit button
+  $form['actions']['submit']['#attributes']['class'][] = 'c-magnifier-button';
+  // $form['actions']['#suffix'] = '</div>';
+}
+function foropae_form_alter(&$form, $form_state, $form_id) {
+  switch ($form_id){
+    case 'search_form':
+      unset($form['help_link']);
+      unset($form['advanced']);    
+      break;
+   
+  }
+
+}
+
+function foropae_preprocess_paragraph(&$variables) {
+  $icon_html = new SvgiconController();
+  $variables['icons_var'] = $icon_html->svg_icons_inline('icons', 'plus');
+  $variables['icons_pvideo_play'] = $icon_html->svg_icons_inline('icons', 'play');
+  $variables['icons_pnewsletter'] = $icon_html->svg_icons_inline('icons', 'newsletter');
+  $variables['icons_var_ganador'] = $icon_html->svg_icons_inline('brand', 'award');
+  $tokenyoutube = "[svgsprite:icons:youtube-2:dims=true]";
+  $token_service = \Drupal::token();
+  $variables['tokenyoutube'] = $token_service->replace($tokenyoutube);
+  $token_estatuilla = "[svgsprite:icons:estatuilla:dims=true]";
+  $variables['token_estatuilla'] = $token_service->replace($token_estatuilla);
+  $token_janssenlogo = "[icons:svgicon:brand:logo-janssen]";
+  $token_catedraslogo = "[icons:svgicon:brand:logo-catedras]";
+  $variables['token_janssenlogo'] = $token_service->replace($token_janssenlogo);
+  $variables['token_catedraslogo'] = $token_service->replace($token_catedraslogo);
+  $token_modelo= "[svgsprite:icons:modelo-ae:dims=true]";
+  $variables['token_modelo'] = $token_service->replace($token_modelo);
+  $token_newsletter = "[svgsprite:icons:newsletter]";
+  $variables['token_newsletter'] = $token_service->replace($token_newsletter);
+}
+
+function foropae_preprocess_html(&$variables) {
+  if (Drupal::service('path.matcher')->isFrontPage()) {
+    $variables['head_title'] = [t('Foro Premios Afectivo Efectivo')];
+  }
+}
+
+function foropae_preprocess_page(&$variables) {
+  $icon_html = new SvgiconController();
+  $variables['desktop_logo'] = $icon_html->svg_icons_inline('brand', 'logo-ae-02');
+  $variables['mobile_logo'] = $icon_html->svg_icons_inline('brand', 'logo-ae-01');
+  $variables['burger_menu'] = $icon_html->svg_icons_inline('icons', 'burger-menu');
+  $variables['#attached']['library'][] = 'public://items/uploads';
+
+
+}
+
+function foropae_preprocess_node(&$vars) {
+  $icon_html = new SvgiconController();
+  $vars['icons_var_ganador'] = $icon_html->svg_icons_inline('brand', 'award');
+  $vars['icons_plus'] = $icon_html->svg_icons_inline('icons', 'plus');
+  $vars['icons_video_play'] = $icon_html->svg_icons_inline('icons', 'play');
+  $vars['icons_video_cat1'] = $icon_html->svg_icons_inline('awards', 'cat1');
+  $vars['icons_video_cat2'] = $icon_html->svg_icons_inline('awards', 'cat2');
+  $vars['icons_video_cat3'] = $icon_html->svg_icons_inline('awards', 'cat3');
+  $vars['icons_video_cat4'] = $icon_html->svg_icons_inline('awards', 'cat4');
+  $vars['icons_video_cat5'] = $icon_html->svg_icons_inline('awards', 'cat5');
+  $vars['icons_video_cat6'] = $icon_html->svg_icons_inline('awards', 'cat6');
+  $vars['icons_video_cat7'] = $icon_html->svg_icons_inline('awards', 'cat7');
+  $vars['icons_video_cat8'] = $icon_html->svg_icons_inline('awards', 'cat8');
+  $token_service = \Drupal::token();
+  $token_newsletter = "[svgsprite:icons:newsletter]";
+  $vars['token_newsletter'] = $token_service->replace($token_newsletter);
+  
+  
+}
+
+function foropae_preprocess_taxonomy_term(&$variables) {
+  $icon_html = new SvgiconController();
+  $variables['administracion_sanitaria'] = $icon_html->svg_icons_inline('categories', 'administracion-sanitaria');
+  $variables['profesionales_sanitarios'] = $icon_html->svg_icons_inline('categories', 'profesionales-sanitarios');
+  $variables['asociaciones_de_pacientes'] = $icon_html->svg_icons_inline('categories', 'asociaciones-de-pacientes ');
+  $variables['colegios_profesionales'] = $icon_html->svg_icons_inline('categories', 'colegios-profesionales ');
+  $variables['industria_farmaceutica'] = $icon_html->svg_icons_inline('categories', 'industria-farmaceutica ');
+  $variables['medios_de_comunicacion'] = $icon_html->svg_icons_inline('categories', 'medios-de-comunicacion');
+  $variables['ong_de_ambito_general'] = $icon_html->svg_icons_inline('categories', 'ong-de-ambito-general');
+  $variables['ong_de_ambito_sanitario'] = $icon_html->svg_icons_inline('categories', 'ong-de-ambito-sanitario');
+  $variables['pacientes_y_familiares'] = $icon_html->svg_icons_inline('categories', 'pacientes-y-familiares');
+  $variables['sociedades_cientificas'] = $icon_html->svg_icons_inline('categories', 'sociedades-cientificas');
+  $variables['universidades'] = $icon_html->svg_icons_inline('categories', 'universidades');
+  
+}
+
+/**
+
+ * Implements hook_preprocess_HOOK().
+
+ */
+
+function foropae_preprocess_item_list__search_results(&$variables) {
+
+
+  if (!\Drupal::request()->query->has('keys') && isset($variables['empty']))
+  {
+     $variables['empty']['#markup'] = '<h3>' . t('Foobar') . '</h3>';
+    unset($variables['empty']);
+    unset($variables['search_form']);
+    unset($variables['form']['submit']);
+
+  }
+
+}
+function foropae_custom_search_preprocess_item_list__search_results(&$variables) {
+  $variables['empty'];
+  if (!\Drupal::request()->query->has('keys') && isset($variables['empty']))
+  {
+     $variables['empty']['#markup'] = '<h3>' . t('Foobar') . '</h3>';
+    unset($variables['empty']);
+    unset($variables['search_form']);
+    unset($variables['form']['submit']);
+
+
+  }
+    // ksm($variables);
+    if (!\Drupal::request()->query->has('keys') && isset($variables['empty'])) {
+      unset($variables['empty']);
+    }
+  
+  if (empty($index) || empty($server) || empty($originalKeys = $query->getOriginalKeys())) {
+    unset($variables['empty']);
+    unset($variables['search_form']);
+    return;
+  }
+
+}
+
+
+    
+ 

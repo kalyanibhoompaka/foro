@@ -1,0 +1,79 @@
+<article class="c-project">
+
+ <header class="c-project__header">
+ {% if node.field_header_image is not empty %}
+ <div class="c-project__bg-image u-bg-image" style="background-image:url({{ file_url(node.field_header_image.entity.fileuri) }})"> 
+</div>
+ {% else %}
+<div class="c-project__bg-image u-bg-image" style="background-image:url({{ file_url(node.field_imagen.entity.fileuri) }})"> 
+</div>
+{% endif %}
+
+  <div class="l-container is-wide">
+
+   <h1 class="c-project__bg-title">{{ label }}</h1>
+   {% if content.field_subtitulo_proyecto %}
+    <div class="c-project__bg-subtitle">{{ content.field_subtitulo_proyecto.0 }}</div>
+   {% endif %}
+
+  </div>
+ </header>
+
+ <!-- Project description (intro) -->
+ <div class="l-container is-wide">
+
+  <div class="l-standard">
+   <div class="l-standard__sidebar">
+
+    <div class="o-project-category">
+     {{ node.field_perfil_idea.entity.name.value }}
+    </div>
+
+ <ul class="c-tag-list">
+ {{ content.field_etiquetas }}
+    </ul>
+
+
+
+
+    {% if node.field_edicion is not empty %}
+     <div class="c-project-participation">
+      {% if node.field_premio is not empty %}
+       {{ icons_var_ganador }}
+       {{ 'Premiado '|t }}
+      {% else %}
+       {{ 'Foro '|t }}
+      {% endif %}
+      {{ node.field_edicion.entity.name.value }}
+     </div>
+    {% endif %}
+
+    <div class="c-project-links">
+     {{ content.field_enlaces }}
+    </div>
+
+   </div>
+   <div class="l-standard__content">
+    {{ content.body }}
+   </div>
+  </div>
+ </div>
+
+
+
+ <!-- Project extra info (paragraphs) -->
+ {{ content.field_paragraphs }}
+
+ <!-- Project related content (videos) -->
+ {% if content.field_contenido_relacionado %}
+  <div class="l-container is-wide">
+   <div class="l-standard">
+    <div class="l-standard__content field-contenido-relacionado">
+     <h3>{{ content.field_contenido_relacionado['#title'] }}</h3>
+     {{ content.field_contenido_relacionado }}
+    </div>
+   </div>
+  </div>
+ {% endif %}
+
+</article>

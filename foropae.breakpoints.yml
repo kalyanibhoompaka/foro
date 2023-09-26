@@ -1,0 +1,10 @@
+foropae.ultrawide:
+  min-width: 1690px
+foropae.wide:
+  min-width: 1367px
+foropae.desktop:
+  min-width: 1025px
+foropae.tablet:
+  min-width: 769px
+foropae.mobile:
+  min-width: 480px
