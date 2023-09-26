@@ -1,0 +1,5 @@
+name: Menú especial foro
+type: module
+description: 'Crea menús extra para el foro Prensa ...'
+package: Other
+core_version_requirement: ^9

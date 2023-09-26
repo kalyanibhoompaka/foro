@@ -1,0 +1,136 @@
+<?php
+/**
+ * @file
+ * foro_menu.module file.
+ */
+use Drupal\taxonomy\Entity\Vocabulary;
+
+/**
+ * Implements hook_theme().
+ */
+function foro_menu_theme($existing, $type, $theme, $path) {
+  return [
+    'foro_menu' => [
+      'variables' => ['entries' => [], 'title' => '', 'menuId'=> 1 ]
+    ],
+  ];
+}
+
+
+function foro_menu_get_available_sections(){
+  $valueList = \Drupal::config('foro_menu.settings')->get('foro_menu_entries');
+  if( empty($valueList) ){
+    $values = [
+      'premiados' => 'Premiados',
+      'videos' => 'Videos',
+      'fotos' => 'Fotos',
+      'programa' => 'Programa',
+      'ponentes' => 'Ponentes',
+      'localización' => 'Localización',
+      'guidebook' => 'Guidebook',
+      'bases-de-la-convocatoria' => 'Bases de la convocatoria',
+      'metodologia' => 'Metodología',
+    ];
+  }
+  else{
+    $list = explode("\n", $valueList );
+    $values = [];
+    foreach ($list as $row) {
+      list( $key, $value ) = array_pad( explode('|', $row), 2, null);
+      if(!empty($key) && !empty($value) && !is_null($key) && !is_null($value)){
+        $key = trim($key);
+        $value = trim($value);
+        if( $key && $value ){
+          $values[ $key ] = $value;
+        }
+      }
+    }
+  }
+  
+  return $values;
+}
+
+function _foro_menu_get_content( $year, $section ){
+  $sections = foro_menu_get_available_sections();
+  $menuEntries = array();
+  foreach ($sections as $key => $value) {
+    $path = "ediciones/$year/$key";
+    if( _foro_menu_is_path_available( $year , $key ) ){
+
+      $menuEntries[ $key ] = array(
+        'url' => "/$path#menu-editions",
+        'title' => $value,
+        'class' => ( $section == $key )? 'is-selected': ''
+      );
+    }
+  }
+ 
+  $renderable[] = [
+    '#theme' => 'foro_menu',
+    '#entries' => $menuEntries,
+    '#menuId'=> 'menu-editions'
+  ];
+
+  return $renderable;
+}
+
+function _foro_menu_is_path_available( $year , $key ){
+  
+  $result = false;
+
+  // Check if static content exists
+  $path = "/ediciones/$year/$key";
+  $alias = \Drupal::service('path_alias.repository');
+   
+  // check if view page exists and has contents
+  if( _foro_menu_view_has_results($year , $key) ){
+    $result = true;
+
+  }
+  elseif( $alias->lookupByAlias($path, "es") ){
+    $result = true;
+  }
+
+ 
+  return $result;
+}
+
+function _foro_menu_view_has_results( $year, $section ){
+  
+  $viewSectionMap = array(
+    'premiados' => array( 'view' => 'premiados', 'display' => 'page_1' ),
+    'ponentes' => array( 'view' => 'ponentes', 'display' => 'page_1' ),
+    'videos' => array( 'view' => 'videos_foro', 'display' => 'page_1' ),
+    'fotos' => array( 'view' => 'galerias_premios', 'display' => 'page_1' ),
+  );
+
+  if( empty($viewSectionMap[$section]) ) return false;
+
+  $viewData = $viewSectionMap[$section];
+  $view = views_get_view_result( $viewData['view'], 1, $year );
+
+  $result = count($view);
+  if ($result)  return true;
+  return false;
+}
+
+/**
+* Implementation of hook_wysiwyg_editor_settings_alter().
+*/
+function _foro_menu_wysiwyg_editor_settings_alter(&$settings, $context) {
+  if($context['profile']->editor == 'ckeditor') {
+    $settings['entities'] = FALSE;
+  }
+}
+/**
+ * Implements hook_preprocess_HOOK().
+ */
+function _foro_menu_preprocess_item_list__search_results(&$variables) {
+  // ksm($variables);
+  if (!\Drupal::request()->query->has('keys') && isset($variables['empty'])) {
+    unset($variables['empty']);
+      unset($variables['empty']);
+    unset($variables['search_form']);
+    unset($variables['form']['submit']);
+  }
+}

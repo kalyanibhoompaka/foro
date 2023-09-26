@@ -1,0 +1,9 @@
+name: GDPR One Trust Implementation
+description: GDPR One Trust Implementation for EMEA sites.
+package: GDPR Onetrust
+
+type: module
+core_version_requirement: ^8 || ^9
+
+configure: gdpr_onetrust.settings
+version: 8.x-1.1

@@ -1,0 +1,4 @@
+onetrust_cookie_blocking.settings:
+  route_name: onetrust_cookie_blocking.settings
+  title: 'Cookie Blocking'
+  base_route: gdpr_onetrust.settings

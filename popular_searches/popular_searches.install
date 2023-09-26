@@ -1,0 +1,73 @@
+<?php
+
+/**
+ * @file
+ * Helps to create database for storing search results.
+ */
+
+/**
+ * hook_schema()
+ */
+function popular_searches_schema() {
+
+  $schema['popular_searches'] = array(
+    'description' => 'Store No of Popular Searches',
+    'fields' => array(
+      'id' => array(
+        'type' => 'serial',
+        'not null' => TRUE,
+        'description' => 'Primary Key: Unique ID.',
+      ),
+      'node_nid' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+        'description' => 'Node Id.',
+      ),
+      'data_type' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+        'description' => 'Node type.',
+      ),
+      'title' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+        'description' => 'Node title.',
+      ),
+      'link_uri' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+        'description' => 'Node url.',
+      ),
+      'created_date' => array(
+        'description' => 'Created date time(Y-m-d\TH:i:s).',
+        'type' => 'varchar',
+        'mysql_type' => 'DATETIME',
+        'not null' => TRUE,
+      ),
+      'entry_date' => array(
+        'description' => 'Entry date time(Y-m-d).',
+        'type' => 'varchar',
+        'mysql_type' => 'DATETIME',
+        'not null' => TRUE,
+      ),
+    ),
+    'primary key' => array('id'),
+    'indexes' => array(
+      'node_nid' => array('node_nid'),
+      'data_type' => array('data_type'),
+      'title' => array('title'),
+      'link_uri' => array('link_uri'),
+      'created_date' => array('created_date'),
+      'entry_date' => array('entry_date'),
+    ),
+  );
+  return $schema;
+}

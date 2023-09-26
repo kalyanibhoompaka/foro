@@ -1,0 +1,8 @@
+# onetrust_cookie_blocking.libraries.yml
+cookie-blocking:
+  version: 1.x
+  js:
+    js/onetrust_cookie_blocking.js: {}
+  dependencies:
+      - core/jquery
+      - core/drupalSettings

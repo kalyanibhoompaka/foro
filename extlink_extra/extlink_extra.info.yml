@@ -1,0 +1,11 @@
+name: "External Links Extra"
+description: "Adds extra functionality to the External Links module."
+package: "User interface"
+
+type: module
+core_version_requirement: ^8 || ^9
+
+dependencies:
+  - extlink
+
+configure: extlink_admin.settings

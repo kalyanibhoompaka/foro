@@ -1,0 +1,4 @@
+foro_menu.editions_settings:
+  route_name: foro_menu.editions_settings
+  title: 'Menú ediciones'
+  base_route: system.admin_config_system

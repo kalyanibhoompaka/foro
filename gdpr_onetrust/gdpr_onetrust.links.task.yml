@@ -1,0 +1,4 @@
+gdpr_onetrust.settings:
+  route_name: gdpr_onetrust.settings
+  title: 'GDPR compliance'
+  base_route: gdpr_onetrust.settings

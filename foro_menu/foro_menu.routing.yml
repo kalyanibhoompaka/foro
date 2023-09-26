@@ -1,0 +1,7 @@
+foro_menu.editions_settings:
+  path: '/admin/structure/menu/editions'
+  defaults:
+    _form: '\Drupal\foro_menu\Form\ForoMenuSettingsForm'
+    _title: 'Menú ediciones'
+  requirements:
+    _permission: 'administer site configuration'

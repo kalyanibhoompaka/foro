@@ -1,0 +1,8 @@
+# In onetrust_cookie_blocking.routing.yml file.
+onetrust_cookie_blocking.settings:
+  path: '/admin/config/system/gdpr-onetrust/cookie-blocking'
+  defaults:
+    _title: 'Cookie Blocking'
+    _form: '\Drupal\onetrust_cookie_blocking\Form\GDPROneTrustCookieBlocking'
+  requirements:
+    _permission: 'One Trust Access'

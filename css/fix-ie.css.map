@@ -1,0 +1,1 @@
+{"version":3,"file":"fix-ie.css","sources":["fix-ie.scss"],"sourcesContent":["\n// Special styles to fix IE\n\nbody {\n  width: 300px;\n}\n\na {\n  font-size: 300px;\n}\n"],"mappings":"AAGA,AAAA,IAAI,CAAC;EACH,KAAK,EAAE,KAAM,GACd;;AAED,AAAA,CAAC,CAAC;EACA,SAAS,EAAE,KAAM,GAClB","names":[]}

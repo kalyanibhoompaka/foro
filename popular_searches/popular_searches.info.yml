@@ -1,0 +1,4 @@
+name: Popular Searches
+description: 'This module is for Popular Searches.'
+type: module
+core_version_requirement: ^9 || ^10

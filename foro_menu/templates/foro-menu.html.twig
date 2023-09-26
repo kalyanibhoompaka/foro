@@ -1,0 +1,12 @@
+<div class="l-container is-wide">
+  <ul class="c-menu-editions" id="{{ menuId }}" >
+    {% for entry in entries %}
+      <li class="c-menu-editions__item">
+        <a class="c-menu-editions__link {{ entry.class }}"
+          href="{{ entry.url }}">
+          {{ entry.title }}
+        </a>
+      </li>
+    {% endfor %}
+  </ul>
+</div>

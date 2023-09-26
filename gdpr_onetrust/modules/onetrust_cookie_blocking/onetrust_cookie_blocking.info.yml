@@ -1,0 +1,8 @@
+name: GDPR - Block cookies from Javascript
+description: Block the external cookies load from Javascripts
+package: GDPR Onetrust
+
+type: module
+core_version_requirement: ^8 || ^9
+
+version: 8.x-1.2

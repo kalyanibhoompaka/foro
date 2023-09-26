@@ -1,0 +1,8 @@
+# In gdpr_onetrust.routing.yml file.
+gdpr_onetrust.settings:
+  path: '/admin/config/system/gdpr-onetrust'
+  defaults:
+    _title: 'GDPR compliance'
+    _form: '\Drupal\gdpr_onetrust\Form\GDPROneTrustForm'
+  requirements:
+    _permission: 'One Trust Access'

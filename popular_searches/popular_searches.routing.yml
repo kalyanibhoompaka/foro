@@ -1,0 +1,22 @@
+popular_searches.popular_searches_data:
+  path: '/api/get-popular-search-list'
+  defaults:
+    _controller: '\Drupal\popular_searches\Controller\PopularSearchDataController::popularSearch'
+  requirements:
+    _permission: 'access content'
+
+popular_searches.push_popular_searches_data:
+  path: '/api/make-popular-search-list'
+  defaults:
+    _controller: '\Drupal\popular_searches\Controller\PopularSearchController::getSearchData'
+  requirements:
+    _permission: 'access content'
+# popular_searches.push_popular_searches:
+#   path: '/api/form'
+#   defaults:
+#     _title: 'Form'
+#     _form: '\Drupal\popular_searches\Form\PopularSearchController'
+#   requirements: 
+#     _permission: 'access content'
+#   options:  
+#     _admin_route: TRUE

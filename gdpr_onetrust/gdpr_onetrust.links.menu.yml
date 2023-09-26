@@ -1,0 +1,6 @@
+# In gdpr_onetrust.links.menu.yml file.
+gdpr_onetrust.admin:
+  title: 'GDPR compliance'
+  description: 'Make your website compliant with the GDPR Directive on Privacy and Data protection regulations using One Trust.'
+  parent: system.admin_config_development
+  url: internal:/admin/config/system/gdpr-onetrust

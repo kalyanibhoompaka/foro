@@ -1,0 +1,5 @@
+# In gdpr_onetrust.permissions.yml file.
+One Trust Access:
+  title: 'GDPR Onetrust'
+  description: 'A custom permission for GDPR Onetrust'
+  restrict access: TRUE
